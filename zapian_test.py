@@ -31,7 +31,9 @@ def build_index():
                              },
 
                             uid=unicode(post.id),
-                            data={}
+                            data={
+                                "title": post.title
+                            }
                             )
 
 
@@ -41,8 +43,11 @@ def search():
         [u'content', u'招聘', u'anyof'],
     ]
     results = idx_db.search(["test"], query
+
                             )
-    print results
+    for result in results:
+        doc = idx_db.get_document(result)
+        print doc.get('title')
 
 if __name__ == '__main__':
     import sys
